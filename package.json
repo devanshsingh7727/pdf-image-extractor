@@ -24,6 +24,7 @@
   "homepage": "https://github.com/devanshsingh7727/pdfimagetextextractor#readme",
   "dependencies": {
     "langchain": "^0.1.28",
-    "pdf-lib": "^1.17.1"
+    "pdf-lib": "^1.17.1",
+    "pdf-parse": "^1.1.1"
   }
 }
