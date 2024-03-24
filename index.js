@@ -27,11 +27,19 @@ function guessMimeType(imageBytes) {
     return "application/octet-stream"; // Unknown or binary data
   }
 }
-const ExtractImages = async (pdfUrl) => {
+const ExtractImages = async ({ pdf, fileType }) => {
   try {
     // Fetch the PDF
-    const response = await fetch(pdfUrl);
-    const arrayBuffer = await response.arrayBuffer();
+
+    let arrayBuffer;
+    if (fileType === "url") {
+      let response = await fetch(pdf);
+      arrayBuffer = await response.arrayBuffer();
+    } else if (fileType === "blob") {
+      arrayBuffer = await pdf.arrayBuffer();
+    } else {
+      return;
+    }
 
     // Load the PDF
     const pdfDoc = await PDFDocument.load(arrayBuffer, {
@@ -63,7 +71,12 @@ const ExtractImages = async (pdfUrl) => {
               continue;
             }
             const imageUrl = URL.createObjectURL(blob);
-            extractedImages.push({ multimedia: imageUrl, type: "image" });
+            extractedImages.push({
+              blob: blob,
+              url: imageUrl,
+              type: "image",
+              imageType: mimeType,
+            });
           }
         }
       }
