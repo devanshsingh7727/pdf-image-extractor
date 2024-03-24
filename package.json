@@ -1,0 +1,25 @@
+{
+  "name": "pdfimagetextextractor",
+  "version": "1.0.0",
+  "description": "pdf",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "devansh singh",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/devanshsingh7727/pdfimagetextextractor.git"
+  },
+  "keywords": [
+    "pdf",
+    "image",
+    "text",
+    "javascript"
+  ],
+  "bugs": {
+    "url": "https://github.com/devanshsingh7727/pdfimagetextextractor/issues"
+  },
+  "homepage": "https://github.com/devanshsingh7727/pdfimagetextextractor#readme"
+}
