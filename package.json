@@ -1,6 +1,6 @@
 {
-  "name": "pdfimagetextextractor",
-  "version": "1.1.2",
+  "name": "pdf-text-image-extractor",
+  "version": "2.0.0",
   "description": "pdf",
   "main": "index.js",
   "scripts": {
@@ -10,7 +10,7 @@
   "license": "ISC",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/devanshsingh7727/pdfimagetextextractor.git"
+    "url": "git+https://github.com/devanshsingh7727/pdf-text-image-extractor.git"
   },
   "keywords": [
     "pdf",
@@ -19,9 +19,9 @@
     "javascript"
   ],
   "bugs": {
-    "url": "https://github.com/devanshsingh7727/pdfimagetextextractor/issues"
+    "url": "https://github.com/devanshsingh7727/pdf-text-image-extractor/issues"
   },
-  "homepage": "https://github.com/devanshsingh7727/pdfimagetextextractor#readme",
+  "homepage": "https://github.com/devanshsingh7727/pdf-text-image-extractor#readme",
   "dependencies": {
     "langchain": "^0.1.28",
     "pdf-lib": "^1.17.1",

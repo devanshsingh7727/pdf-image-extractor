@@ -1,5 +1,9 @@
 const { PDFDocument, PDFName } = require("pdf-lib");
 const { WebPDFLoader } = require("langchain/document_loaders/web/pdf");
+import pdfjsWorker from "pdfjs-dist/legacy/build/pdf.worker.entry";
+
+pdfjsLib.GlobalWorkerOptions.workerSrc = pdfjsWorker;
+
 function guessMimeType(imageBytes) {
   if (imageBytes[0] === 0xff && imageBytes[1] === 0xd8) {
     return "image/jpeg"; // JPEG

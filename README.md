@@ -1,6 +1,6 @@
-# pdfimagetextextractor
+# pdf-text-image-extractor
 
-pdfimagetextextractor is a toolkit designed to help you extract images and text from PDF files easily. Whether you're dealing with URLs, blobs, or local binary data, this package can handle multiple file types. The module provides a streamlined interface for extracting images in common formats like PNG and JPEG as well as extracting all text content from your PDF files.
+pdf-text-image-extractor is a toolkit designed to help you extract images and text from PDF files easily. Whether you're dealing with URLs, blobs, or local binary data, this package can handle multiple file types. The module provides a streamlined interface for extracting images in common formats like PNG and JPEG as well as extracting all text content from your PDF files.
 
 ## Features
 
@@ -13,7 +13,7 @@ pdfimagetextextractor is a toolkit designed to help you extract images and text 
 ## Installation
 
 Install the package by running:
-```npm install pdfimagetextextractor```
+`npm install pdf-text-image-extractor`
 
 ## Usage
 
@@ -22,32 +22,32 @@ Below are quick usage guides for both text and image extraction from a PDF file.
 ### Extracting Text from PDF
 
 ```javascript
+const { ExtractText } = require("pdf-text-image-extractor");
 
-const { ExtractText } = require('pdfimagetextextractor');
-
-const pdfSource = 'path/to/your/document.pdf'; // This can be a URL or a Blob
-const fileType = 'url'; // or 'blob' based on your input type
+const pdfSource = "path/to/your/document.pdf"; // This can be a URL or a Blob
+const fileType = "url"; // or 'blob' based on your input type
 
 ExtractText({ pdf: pdfSource, fileType: fileType }).then((text) => {
-console.log(text);
+  console.log(text);
 });
 ```
+
 ### Extracting Images from PDF
 
-
 ```javascript
-const { ExtractImages } = require('pdfimagetextextractor');
+const { ExtractImages } = require("pdf-text-image-extractor");
 
-const pdfSource = 'path/to/your/document.pdf'; // This can be a URL or a Blob
-const fileType = 'url'; // or 'blob' based on your input type
+const pdfSource = "path/to/your/document.pdf"; // This can be a URL or a Blob
+const fileType = "url"; // or 'blob' based on your input type
 
 ExtractImages({ pdf: pdfSource, fileType: fileType }).then((images) => {
-images.forEach((image) => {
-console.log(image.url); // Blob URL for the image
-// You can use the blob URL to display the image or download it
-})
+  images.forEach((image) => {
+    console.log(image.url); // Blob URL for the image
+    // You can use the blob URL to display the image or download it
+  });
 });
 ```
+
 ## API
 
 ### `ExtractText({ pdf, fileType })`
@@ -83,7 +83,5 @@ Contributions are what make the open source community such an amazing place to l
 ## License
 
 Distributed under the MIT License. See `LICENSE` for more information.
-
-
 
 This README is a starting point, and you can certainly expand upon it to include other sections such as a "Known Issues" or "Changelog" as your package evolves.
