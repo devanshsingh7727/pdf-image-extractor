@@ -1,6 +1,6 @@
 {
   "name": "pdf-image-extractor",
-  "version": "2.0.6",
+  "version": "2.0.7",
   "description": "pdf",
   "main": "index.js",
   "scripts": {
