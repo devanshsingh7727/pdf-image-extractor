@@ -1,8 +1,4 @@
 const { PDFDocument, PDFName } = require("pdf-lib");
-const { WebPDFLoader } = require("langchain/document_loaders/web/pdf");
-import pdfjsWorker from "pdfjs-dist/legacy/build/pdf.worker.entry";
-
-pdfjsLib.GlobalWorkerOptions.workerSrc = pdfjsWorker;
 
 function guessMimeType(imageBytes) {
   if (imageBytes[0] === 0xff && imageBytes[1] === 0xd8) {
@@ -92,24 +88,7 @@ const ExtractImages = async ({ pdf, fileType }) => {
   } finally {
   }
 };
-const ExtractText = async ({ pdf, fileType }) => {
-  let blobData;
-  if (fileType === "url") {
-    blobData = await fetch(pdf).then((res) => res.blob());
-  } else if (fileType === "blob") {
-    blobData = await pdf;
-  } else {
-    return;
-  }
-  const loader = new WebPDFLoader(blobData);
 
-  const data = await loader.load();
-  let allText = "";
-  data.map((rep) => (allText += rep.pageContent + "/n"));
-
-  return allText;
-};
 module.exports = {
-  ExtractText,
   ExtractImages,
 };

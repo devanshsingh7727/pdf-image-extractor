@@ -1,6 +1,6 @@
 {
   "name": "pdf-text-image-extractor",
-  "version": "2.0.0",
+  "version": "2.0.6",
   "description": "pdf",
   "main": "index.js",
   "scripts": {
@@ -23,8 +23,8 @@
   },
   "homepage": "https://github.com/devanshsingh7727/pdf-text-image-extractor#readme",
   "dependencies": {
-    "langchain": "^0.1.28",
     "pdf-lib": "^1.17.1",
-    "pdf-parse": "^1.1.1"
+    "pdf-parse": "^1.1.1",
+    "pdf-text-reader": "^4.0.1"
   }
 }
