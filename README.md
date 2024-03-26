@@ -1,6 +1,6 @@
-# pdf-text-image-extractor
+# pdf-image-extractor
 
-pdf-text-image-extractor is a toolkit designed to help you extract images and text from PDF files easily. Whether you're dealing with URLs, blobs, or local binary data, this package can handle multiple file types. The module provides a streamlined interface for extracting images in common formats like PNG and JPEG as well as extracting all text content from your PDF files.
+pdf-image-extractor is a toolkit designed to help you extract images and text from PDF files easily. Whether you're dealing with URLs, blobs, or local binary data, this package can handle multiple file types. The module provides a streamlined interface for extracting images in common formats like PNG and JPEG as well as extracting all text content from your PDF files.
 
 ## Features
 
@@ -13,7 +13,7 @@ pdf-text-image-extractor is a toolkit designed to help you extract images and te
 ## Installation
 
 Install the package by running:
-`npm install pdf-text-image-extractor`
+`npm install pdf-image-extractor`
 
 ## Usage
 
@@ -22,7 +22,7 @@ Below are quick usage guides for both text and image extraction from a PDF file.
 ### Extracting Text from PDF
 
 ```javascript
-const { ExtractText } = require("pdf-text-image-extractor");
+const { ExtractText } = require("pdf-image-extractor");
 
 const pdfSource = "path/to/your/document.pdf"; // This can be a URL or a Blob
 const fileType = "url"; // or 'blob' based on your input type
@@ -35,7 +35,7 @@ ExtractText({ pdf: pdfSource, fileType: fileType }).then((text) => {
 ### Extracting Images from PDF
 
 ```javascript
-const { ExtractImages } = require("pdf-text-image-extractor");
+const { ExtractImages } = require("pdf-image-extractor");
 
 const pdfSource = "path/to/your/document.pdf"; // This can be a URL or a Blob
 const fileType = "url"; // or 'blob' based on your input type
