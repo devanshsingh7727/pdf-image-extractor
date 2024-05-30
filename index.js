@@ -75,6 +75,8 @@ const ExtractImages = async ({ pdf, fileType }) => {
               continue;
             }
 
+            seenImages.add(byteString);
+
             if (mimeType.startsWith("image/")) {
               const extension = mimeType.split("/")[1];
               const blob = new Blob([imageBytes], { type: mimeType });
