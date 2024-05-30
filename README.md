@@ -23,14 +23,27 @@ Below are quick usage guides for image extraction from a PDF file.
 ```javascript
 const { ExtractImages } = require("pdf-image-extractor");
 
-const pdfSource = "path/to/your/document.pdf"; // This can be a URL or a Blob
-const fileType = "url"; // or 'blob' based on your input type
+const pdfSource = "path/to/your/document.pdf"; // This can be a URL or a Blob or a file path
+const fileType = "url"; // url | blob | filePath
 
+// Simple example
 ExtractImages({ pdf: pdfSource, fileType: fileType }).then((images) => {
   images.forEach((image) => {
     console.log(image.url); // Blob URL for the image
     // You can use the blob URL to display the image or download it
   });
+});
+
+// Write images to disk from a file path
+const pdfSource = './my-document.pdf';
+const fileType = 'filePath';
+
+ExtractImages({ pdf: pdfSource, fileType: fileType }).then((images) => {
+  for(let i = 0; i < images.length; i++) {
+    const { blob, extension } = images[i];
+    
+    fs.writeFileSync(`./images/${i}.${extension}`, Buffer.from(await blob.arrayBuffer()));
+  }
 });
 ```
 
@@ -43,11 +56,11 @@ Extracts images from a PDF document and provides Blob URLs for use.
 Parameters:
 
 - `pdf`: A String URL or Blob of the PDF file.
-- `fileType`: A string indicating the type of `pdf`. Use `'url'` for URL inputs and `'blob'` for Blob inputs.
+- `fileType`: A string indicating the type of `pdf`. Use `'url'` for URL inputs and `'blob'` for Blob inputs. Use `'filePath'` for file path inputs.
 
 Returns:
 
-- A Promise that resolves with an array of objects. Each object contains properties: `blob`, `url`, `type`, and `imageType` corresponding to the extracted image.
+- A Promise that resolves with an array of objects. Each object contains properties: `blob`, `url`, `type`, `imageType` and `extension` corresponding to the extracted image.
 
 ## Contributing
 

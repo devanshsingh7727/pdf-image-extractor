@@ -1,4 +1,5 @@
-const { PDFDocument, PDFName } = require("pdf-lib");
+const { PDFDocument, PDFName, PDFRawStream } = require("pdf-lib");
+const fs = require("fs");
 
 function guessMimeType(imageBytes) {
   if (imageBytes[0] === 0xff && imageBytes[1] === 0xd8) {
@@ -31,61 +32,71 @@ function guessMimeType(imageBytes) {
 const ExtractImages = async ({ pdf, fileType }) => {
   try {
     // Fetch the PDF
-
     let arrayBuffer;
+
     if (fileType === "url") {
       let response = await fetch(pdf);
       arrayBuffer = await response.arrayBuffer();
     } else if (fileType === "blob") {
       arrayBuffer = await pdf.arrayBuffer();
+    } else if (fileType === "filePath") {
+      arrayBuffer = fs.readFileSync(pdf);
     } else {
-      return;
+      throw new Error("Invalid file type");
     }
 
     // Load the PDF
     const pdfDoc = await PDFDocument.load(arrayBuffer, {
       ignoreEncryption: true,
     });
+
+    // Hold a set of seen images to avoid duplicates
     const seenImages = new Set();
+
     // Placeholder for extracted images
     const extractedImages = [];
+
     // Iterate over each page
     for (let i = 0; i < pdfDoc.getPageCount(); i++) {
       const page = pdfDoc.getPage(i);
-
       const resources = page.node.Resources();
       const xObjects = resources.get(PDFName.of("XObject"));
+
       if (xObjects) {
-        for (const [key, ref] of xObjects.dict) {
-          const pdfImage = pdfDoc.context.lookup(ref);
+        for (const [, ref] of xObjects.dict) {
+          const pdfObject = pdfDoc.context.lookup(ref);
 
-          const pngBytes = await pdfImage.asUint8Array();
-          const mimeType = guessMimeType(pngBytes);
-          const byteString = pngBytes.join(",");
+          if (pdfObject instanceof PDFRawStream) {
+            const imageBytes = pdfObject.contents;
+            const mimeType = guessMimeType(imageBytes);
+            const byteString = imageBytes.join(",");
 
-          if (!seenImages.has(byteString)) {
-            seenImages.add(byteString);
-            let blob;
-            if (mimeType === "image/png" || mimeType === "image/jpeg") {
-              blob = new Blob([pngBytes], { type: mimeType });
-            } else {
+            if (seenImages.has(byteString)) {
               continue;
             }
-            const imageUrl = URL.createObjectURL(blob);
-            extractedImages.push({
-              blob: blob,
-              url: imageUrl,
-              type: "image",
-              imageType: mimeType,
-            });
+
+            seenImages.add(byteString);
+
+            if (mimeType.startsWith("image/")) {
+              const extension = mimeType.split("/")[1];
+              const blob = new Blob([imageBytes], { type: mimeType });
+
+              extractedImages.push({
+                blob,
+                url: URL.createObjectURL(blob),
+                type: "image",
+                imageType: mimeType,
+                extension,
+              });
+            }
           }
         }
       }
     }
+
     return extractedImages;
   } catch (error) {
     console.error("Error extracting images from PDF:", error);
-  } finally {
   }
 };
 
